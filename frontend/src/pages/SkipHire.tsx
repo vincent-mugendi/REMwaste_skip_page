@@ -270,7 +270,7 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
             </div>
 
             {/* EXTRA FEAT TO CONSIDER:::TO DO LATER */}
-            {/* <div className="flex flex-wrap gap-1">
+            <div className="flex flex-wrap gap-1">
               {skip.whatFits.slice(0, 3).map((item, index) => (
                 <Badge key={index} variant="outline" className="text-xs">
                   {item}
@@ -286,7 +286,7 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
                   <span className="text-xs">+{skip.whatFits.length - 3} more</span>
                 </Button>
               )}
-            </div> */}
+            </div>
           </div>
 
           {skip.specialNotes && (
@@ -330,10 +330,10 @@ const SkipHire = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl font-bold mb-4">
-              Choose Your Skip Size
+            What Size Skip Do You Need?
             </h1>
             <p className="text-xl text-gray-300 mb-6">
-              Select the skip size that best suits your needs
+            Select the most suitable skip based on your project’s requirements.
             </p>
             
             {/* Progress Indicator */}
@@ -342,7 +342,7 @@ const SkipHire = () => {
                 <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
                   <Check className="h-4 w-4" />
                 </div>
-                <span>Postcode</span>
+                <span>Location</span>
               </div>
               <div className="w-8 h-px bg-green-600"></div>
               <div className="flex items-center space-x-2">
