@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, X, AlertTriangle, Truck, Info } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-// import SkipContentsModal from "@/components/SkipContentsModal";
+import SkipContentsModal from "@/components/SkipContentsModal";
 
 interface SkipData {
   id: number;
@@ -31,6 +31,7 @@ const skipData: SkipData[] = [
     roadSuitable: true,
     permitRequired: true,
     capacity: "30–40 bin bags",
+    useCase: "Small home clear-outs, garden waste, or bathroom refits",
     whatFits: ["Small furniture", "Garden waste", "Bathroom tiles", "General household items"],
     category: 'standard',
     image: "/images/4-yard.svg"
@@ -43,6 +44,7 @@ const skipData: SkipData[] = [
     roadSuitable: true,
     permitRequired: true,
     capacity: "40–50 bin bags",
+    useCase: "Small renovation jobs or garden clearances",
     whatFits: ["Kitchen units", "Small appliances", "Fence panels", "Shed clearance"],
     category: 'standard',
     image: "/images/5-yard.svg"
@@ -55,6 +57,7 @@ const skipData: SkipData[] = [
     roadSuitable: true,
     permitRequired: true,
     capacity: "50–60 bin bags",
+    useCase: "Popular for builders; ideal for bulky waste like furniture",
     whatFits: ["Old sofa", "Wardrobes", "Plasterboard", "Mixed household waste"],
     category: 'standard',
     isPopular: true,
@@ -68,6 +71,7 @@ const skipData: SkipData[] = [
     roadSuitable: true,
     permitRequired: true,
     capacity: "60–80 bin bags",
+    useCase: "Renovation waste and builder's rubble",
     whatFits: ["Kitchen renovation", "Bathroom suite", "Concrete & rubble", "Timber waste"],
     category: 'standard',
     isPopular: true,
@@ -81,6 +85,7 @@ const skipData: SkipData[] = [
     roadSuitable: true,
     permitRequired: true,
     capacity: "80–100 bin bags",
+    useCase: "Large household projects or light construction debris",
     whatFits: ["House clearance", "Large furniture sets", "Construction debris", "Landscaping waste"],
     category: 'standard',
     image: "/images/10-yard.svg"
@@ -93,6 +98,7 @@ const skipData: SkipData[] = [
     roadSuitable: true,
     permitRequired: true,
     capacity: "100–120 bin bags",
+    useCase: "Large home clearances, bulky waste (non-heavy)",
     whatFits: ["Whole room clearance", "Large garden project", "Shop fitting", "Office clearance"],
     category: 'standard',
     image: "/images/12-yard.svg"
@@ -105,6 +111,7 @@ const skipData: SkipData[] = [
     roadSuitable: true,
     permitRequired: true,
     capacity: "120–140 bin bags",
+    useCase: "House renovations or commercial cleanups",
     whatFits: ["Full house renovation", "Commercial waste", "Large construction project", "Bulky commercial items"],
     category: 'standard',
     image: "/images/14-yard.svg"
@@ -117,6 +124,7 @@ const skipData: SkipData[] = [
     roadSuitable: true,
     permitRequired: true,
     capacity: "140–160 bin bags",
+    useCase: "Bulky light waste, shop refits, packaging",
     whatFits: ["Shop refit", "Large packaging", "Light bulky waste", "Commercial clearance"],
     specialNotes: "Shorter hire period – only 7 days",
     category: 'limited',
@@ -130,6 +138,7 @@ const skipData: SkipData[] = [
     roadSuitable: false,
     permitRequired: false,
     capacity: "200+ bin bags",
+    useCase: "Construction sites, commercial projects",
     whatFits: ["Heavy construction waste", "Large commercial projects", "Industrial waste", "Demolition debris"],
     specialNotes: "Private land only - Not suitable for road placement",
     category: 'restricted',
@@ -143,6 +152,7 @@ const skipData: SkipData[] = [
     roadSuitable: false,
     permitRequired: false,
     capacity: "400+ bin bags",
+    useCase: "Industrial/high-volume waste",
     whatFits: ["Large industrial projects", "Major construction sites", "High-volume commercial waste", "Demolition projects"],
     specialNotes: "Private land only - Not suitable for road placement",
     category: 'restricted',
@@ -243,7 +253,6 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
                     <Truck className="h-4 w-4 text-gray-600" />
                     <span className="font-medium text-sm">Capacity: {skip.capacity}</span>
                 </div>
-                <p className="text-sm text-gray-700 font-medium">{skip.useCase}</p>
           </div>
 
           <div className="space-y-2">
@@ -300,11 +309,11 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
         </CardFooter>
       </Card>
 
-      {/* <SkipContentsModal
+      <SkipContentsModal
         isOpen={showContentsModal}
         onClose={() => setShowContentsModal(false)}
         skip={skip}
-      /> */}
+      />
     </>
   );
 };
