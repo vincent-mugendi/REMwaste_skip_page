@@ -19,6 +19,7 @@ interface SkipData {
   specialNotes?: string;
   category: 'standard' | 'limited' | 'restricted';
   isPopular?: boolean;
+  image?: string;
 }
 
 const skipData: SkipData[] = [
@@ -31,7 +32,8 @@ const skipData: SkipData[] = [
     permitRequired: true,
     capacity: "30–40 bin bags",
     whatFits: ["Small furniture", "Garden waste", "Bathroom tiles", "General household items"],
-    category: 'standard'
+    category: 'standard',
+    image: "/images/4-yard.svg"
   },
   {
     id: 5,
@@ -42,7 +44,8 @@ const skipData: SkipData[] = [
     permitRequired: true,
     capacity: "40–50 bin bags",
     whatFits: ["Kitchen units", "Small appliances", "Fence panels", "Shed clearance"],
-    category: 'standard'
+    category: 'standard',
+    image: "/images/5-yard.svg"
   },
   {
     id: 6,
@@ -54,7 +57,8 @@ const skipData: SkipData[] = [
     capacity: "50–60 bin bags",
     whatFits: ["Old sofa", "Wardrobes", "Plasterboard", "Mixed household waste"],
     category: 'standard',
-    isPopular: true
+    isPopular: true,
+    image: "/images/6-yard.svg"
   },
   {
     id: 8,
@@ -66,7 +70,8 @@ const skipData: SkipData[] = [
     capacity: "60–80 bin bags",
     whatFits: ["Kitchen renovation", "Bathroom suite", "Concrete & rubble", "Timber waste"],
     category: 'standard',
-    isPopular: true
+    isPopular: true,
+    image: "/images/8-yard.svg"
   },
   {
     id: 10,
@@ -77,7 +82,8 @@ const skipData: SkipData[] = [
     permitRequired: true,
     capacity: "80–100 bin bags",
     whatFits: ["House clearance", "Large furniture sets", "Construction debris", "Landscaping waste"],
-    category: 'standard'
+    category: 'standard',
+    image: "/images/10-yard.svg"
   },
   {
     id: 12,
@@ -88,7 +94,8 @@ const skipData: SkipData[] = [
     permitRequired: true,
     capacity: "100–120 bin bags",
     whatFits: ["Whole room clearance", "Large garden project", "Shop fitting", "Office clearance"],
-    category: 'standard'
+    category: 'standard',
+    image: "/images/12-yard.svg"
   },
   {
     id: 14,
@@ -99,7 +106,8 @@ const skipData: SkipData[] = [
     permitRequired: true,
     capacity: "120–140 bin bags",
     whatFits: ["Full house renovation", "Commercial waste", "Large construction project", "Bulky commercial items"],
-    category: 'standard'
+    category: 'standard',
+    image: "/images/14-yard.svg"
   },
   {
     id: 16,
@@ -111,7 +119,8 @@ const skipData: SkipData[] = [
     capacity: "140–160 bin bags",
     whatFits: ["Shop refit", "Large packaging", "Light bulky waste", "Commercial clearance"],
     specialNotes: "Shorter hire period – only 7 days",
-    category: 'limited'
+    category: 'limited',
+    image: "/images/16-yard.svg"
   },
   {
     id: 20,
@@ -123,7 +132,8 @@ const skipData: SkipData[] = [
     capacity: "200+ bin bags",
     whatFits: ["Heavy construction waste", "Large commercial projects", "Industrial waste", "Demolition debris"],
     specialNotes: "Private land only - Not suitable for road placement",
-    category: 'restricted'
+    category: 'restricted',
+    image: "/images/20-yard.svg"
   },
   {
     id: 40,
@@ -135,7 +145,8 @@ const skipData: SkipData[] = [
     capacity: "400+ bin bags",
     whatFits: ["Large industrial projects", "Major construction sites", "High-volume commercial waste", "Demolition projects"],
     specialNotes: "Private land only - Not suitable for road placement",
-    category: 'restricted'
+    category: 'restricted',
+    image: "/images/40-yard.svg"
   }
 ];
 
@@ -220,12 +231,19 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
             </div>
           </div>
 
-          <div className="bg-white p-3 rounded-lg border">
-            <div className="flex items-center gap-2 mb-2">
-              <Truck className="h-4 w-4 text-gray-600" />
-              <span className="font-medium text-sm">Capacity: {skip.capacity}</span>
-            </div>
-            <p className="text-sm text-gray-700 font-medium">{skip.useCase}</p>
+          <div className="bg-white p-3 rounded-lg border space-y-2">
+            {skip.image && (
+                <img 
+                src={skip.image} 
+                alt={`${skip.title} image`} className="w-full h-40 object-cover rounded-md border" 
+                />
+                )}
+                
+                <div className="flex items-center gap-2">
+                    <Truck className="h-4 w-4 text-gray-600" />
+                    <span className="font-medium text-sm">Capacity: {skip.capacity}</span>
+                </div>
+                <p className="text-sm text-gray-700 font-medium">{skip.useCase}</p>
           </div>
 
           <div className="space-y-2">
@@ -401,7 +419,7 @@ const SkipHire = () => {
             <Button size="lg" className="bg-white text-green-600 hover:bg-gray-100">
               Call Us: 0800 123 4567
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-green-600">
+            <Button size="lg" variant="outline" className="border-white text-green-600 hover:bg-white hover:bg-gray-100">
               Request Callback
             </Button>
           </div>
