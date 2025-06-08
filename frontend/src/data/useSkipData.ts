@@ -1,3 +1,5 @@
+// src/data/useSkipData.ts
+
 import { useEffect, useState } from "react";
 
 export interface SkipData {
@@ -89,59 +91,58 @@ const STATIC_DETAILS_BY_SIZE: Record<
   // Add more sizes if needed
 };
 
-export function useSkipData() {
-  const [data, setData] = useState<SkipData[] | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function fetchData() {
+function mapSkipData(apiData: any[]): SkipData[] {
+    return apiData.map(item => {
+      const { size, hire_period_days, price_before_vat, allowed_on_road, forbidden } = item;
+  
+      let category: SkipData["category"];
+      if (allowed_on_road && hire_period_days >= 14 && size <= 8) {
+        category = "standard";
+      } else if (allowed_on_road && hire_period_days < 14) {
+        category = "limited";
+      } else {
+        category = "restricted";
+      }
+  
+      const staticDetails = STATIC_DETAILS_BY_SIZE[size] ?? {
+        capacity: "N/A", useCase: "General waste", whatFits: [], image: "/images/default.svg"
+      };
+  
+      return {
+        id: item.id,
+        title: `${size}-Yard Skip`,
+        price: price_before_vat,
+        hirePeriod: `${hire_period_days} days hire`,
+        roadSuitable: allowed_on_road,
+        permitRequired: allowed_on_road,
+        capacity: staticDetails.capacity,
+        useCase: staticDetails.useCase,
+        whatFits: staticDetails.whatFits,
+        specialNotes: forbidden ? "Placement restrictions apply" : staticDetails.specialNotes,
+        category,
+        isPopular: size === 8,
+        image: staticDetails.image,
+      };
+    });
+  }
+  
+  export function useSkipData() {
+    const [data, setData] = useState<SkipData[] | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+  
+    useEffect(() => {
       setLoading(true);
       setError(null);
-      try {
-        const res = await fetch(SKIP_DATA_URL);
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const json = await res.json();
-
-        const mappedData: SkipData[] = json.map((item: any) => {
-          // Look up static data by item.size, fallback to some defaults
-          const staticDetails = STATIC_DETAILS_BY_SIZE[item.size] ?? {
-            capacity: "N/A",
-            useCase: "N/A",
-            whatFits: [],
-            image: undefined,
-          };
-
-          return {
-            id: item.id,
-            title: `${item.size} Yard Skip`,
-            price: item.price_before_vat,
-            hirePeriod: `${item.hire_period_days} days hire`,
-            roadSuitable: item.allowed_on_road,
-            permitRequired: !item.allowed_on_road,
-            capacity: staticDetails.capacity,
-            useCase: staticDetails.useCase,
-            whatFits: staticDetails.whatFits,
-            specialNotes: item.forbidden ? "This skip is forbidden" : undefined,
-            category: item.allowed_on_road ? "standard" : "restricted",
-            isPopular: item.size === 8,
-            image: staticDetails.image,
-          };
-        });
-
-        setData(mappedData);
-      } catch (err: any) {
-        setError(err.message || "Unknown error");
-        setData(null);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  return { data, loading, error };
-}
+      fetch(SKIP_DATA_URL)
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+          return res.json();
+        })
+        .then(raw => setData(mapSkipData(raw)))
+        .catch(err => { setError(err.message); setData(null); })
+        .finally(() => setLoading(false));
+    }, []);
+  
+    return { data, loading, error };
+  }
