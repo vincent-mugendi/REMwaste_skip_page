@@ -177,7 +177,7 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
     switch (category) {
       case 'standard': return <Badge className="bg-green-600 text-white">Standard</Badge>;
       case 'limited': return <Badge className="bg-yellow-600 text-white">Limited Period</Badge>;
-      case 'restricted': return <Badge className="bg-red-600 text-white">Private Land Only</Badge>;
+      case 'restricted': return <Badge className="bg-purple-600 text-white">Private Land Only</Badge>;
       default: return null;
     }
   };
@@ -411,7 +411,7 @@ const SkipHire = () => {
               <span className="text-sm">Shorter hire period available</span>
             </div>
             <div className="flex items-center space-x-3 p-3 border border-red-200 rounded-lg bg-red-50">
-              <Badge className="bg-red-600 text-white">Private Land Only</Badge>
+              <Badge className="bg-purple-600 text-white">Private Land Only</Badge>
               <span className="text-sm">Not suitable for road placement</span>
             </div>
           </div>
