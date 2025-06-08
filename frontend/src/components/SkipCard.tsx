@@ -9,6 +9,7 @@ import { toast } from "@/hooks/use-toast";
 import SkipContentsModal from "@/components/SkipContentsModal";
 import type { SkipData } from "@/data/skipData";
 
+
 const SkipCard = ({ skip }: { skip: SkipData }) => {
   const [isSelected, setIsSelected] = useState(false);
   const [showContentsModal, setShowContentsModal] = useState(false);
