@@ -9,11 +9,11 @@ import { toast } from "@/hooks/use-toast";
 import SkipContentsModal from "@/components/SkipContentsModal";
 import type { SkipData } from "@/data/skipData";
 
-
 const SkipCard = ({ skip }: { skip: SkipData }) => {
   const [isSelected, setIsSelected] = useState(false);
   const [showContentsModal, setShowContentsModal] = useState(false);
 
+  // Returns tailwind classes for skip category styling
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'standard': return 'border-green-500 bg-green-50';
@@ -23,6 +23,7 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
     }
   };
 
+  // Returns badge component based on category
   const getCategoryBadge = (category: string) => {
     switch (category) {
       case 'standard': return <Badge className="bg-green-600 text-white">Standard</Badge>;
@@ -32,6 +33,7 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
     }
   };
 
+  // Toggle selection and show toast notification
   const handleSelect = () => {
     setIsSelected(!isSelected);
     toast({
@@ -44,13 +46,15 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
 
   return (
     <>
-      <Card className={`relative transition-all duration-300 hover:shadow-lg ${getCategoryColor(skip.category)} ${isSelected ? 'ring-2 ring-green-600' : ''}`}>
+      <Card
+        className={`relative transition-all duration-300 hover:shadow-lg ${getCategoryColor(skip.category)} ${isSelected ? 'ring-2 ring-green-600' : ''}`}
+      >
         {skip.isPopular && (
           <div className="absolute -top-3 left-4 z-10">
             <Badge className="bg-green-600 text-white px-3 py-1">Most Popular</Badge>
           </div>
         )}
-        
+
         <CardHeader className="pb-3">
           <div className="flex justify-between items-start">
             <div>
@@ -67,6 +71,7 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
         </CardHeader>
 
         <CardContent className="space-y-4">
+          {/* Skip attributes with icons */}
           <div className="grid grid-cols-2 gap-4">
             <div className="flex items-center gap-2">
               {skip.roadSuitable ? (
@@ -91,20 +96,22 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
             </div>
           </div>
 
+          {/* Image and capacity info */}
           <div className="bg-white p-3 rounded-lg border space-y-2">
             {skip.image && (
-                <img 
+              <img 
                 src={skip.image} 
-                alt={`${skip.title} image`} className="w-full h-40 object-cover rounded-md border" 
-                />
-                )}
-                
-                <div className="flex items-center gap-2">
-                    <Truck className="h-4 w-4 text-gray-600" />
-                    <span className="font-medium text-sm">Capacity: {skip.capacity}</span>
-                </div>
+                alt={`${skip.title} image`} 
+                className="w-full h-40 object-cover rounded-md border" 
+              />
+            )}
+            <div className="flex items-center gap-2">
+              <Truck className="h-4 w-4 text-gray-600" />
+              <span className="font-medium text-sm">Capacity: {skip.capacity}</span>
+            </div>
           </div>
 
+          {/* What fits in the skip with modal trigger */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <h4 className="font-medium text-sm text-gray-900">What fits in this skip?</h4>
@@ -138,6 +145,7 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
             </div>
           </div>
 
+          {/* Optional special notes */}
           {skip.specialNotes && (
             <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
               <div className="flex items-start gap-2">
@@ -148,6 +156,7 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
           )}
         </CardContent>
 
+        {/* Select button toggles skip selection */}
         <CardFooter>
           <Button 
             onClick={handleSelect}
@@ -158,6 +167,7 @@ const SkipCard = ({ skip }: { skip: SkipData }) => {
         </CardFooter>
       </Card>
 
+      {/* Modal to show detailed contents */}
       <SkipContentsModal
         isOpen={showContentsModal}
         onClose={() => setShowContentsModal(false)}

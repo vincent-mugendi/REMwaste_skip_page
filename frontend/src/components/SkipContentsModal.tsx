@@ -2,6 +2,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Badge } from "@/components/ui/badge";
 import { Ruler, Package, AlertTriangle } from "lucide-react";
 
+// Props interface defining the modal structure
 interface SkipContentsModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -16,6 +17,7 @@ interface SkipContentsModalProps {
 }
 
 const SkipContentsModal = ({ isOpen, onClose, skip }: SkipContentsModalProps) => {
+  // Returns skip dimensions based on ID
   const getSkipDimensions = (skipId: number) => {
     const dimensions: { [key: number]: string } = {
       4: "L: 1.2m × W: 1.8m × H: 1.2m",
@@ -32,8 +34,9 @@ const SkipContentsModal = ({ isOpen, onClose, skip }: SkipContentsModalProps) =>
     return dimensions[skipId] || "Dimensions available on request";
   };
 
+  // Returns categorized example contents per skip ID
   const getDetailedExamples = (skipId: number) => {
-    const examples: { [key: number]: { household: string[], garden: string[], construction: string[] } } = {
+    const examples: { [key: number]: { household: string[]; garden: string[]; construction: string[] } } = {
       4: {
         household: ["Single bed mattress", "Small wardrobe", "Chair", "Small table", "Bags of clothes"],
         garden: ["Small hedge trimmings", "Grass cuttings (2-3 bags)", "Small plant pots", "Garden tools"],
@@ -60,8 +63,8 @@ const SkipContentsModal = ({ isOpen, onClose, skip }: SkipContentsModalProps) =>
         construction: ["House renovation", "Demolition waste", "Heavy construction materials", "Commercial fit-out"]
       }
     };
-    
-    return examples[skipId] || examples[6]; // Default to 6 yard examples
+
+    return examples[skipId] || examples[6]; // Default fallback
   };
 
   const examples = getDetailedExamples(skip.id);
@@ -74,9 +77,9 @@ const SkipContentsModal = ({ isOpen, onClose, skip }: SkipContentsModalProps) =>
             What fits in a {skip.title}?
           </DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-6">
-          {/* Capacity and Dimensions */}
+          {/* Capacity & Dimensions Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-green-50 p-4 rounded-lg border border-green-200">
               <div className="flex items-center gap-2 mb-2">
@@ -85,7 +88,7 @@ const SkipContentsModal = ({ isOpen, onClose, skip }: SkipContentsModalProps) =>
               </div>
               <p className="text-green-700">{skip.capacity}</p>
             </div>
-            
+
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
               <div className="flex items-center gap-2 mb-2">
                 <Ruler className="h-5 w-5 text-blue-600" />
@@ -95,17 +98,17 @@ const SkipContentsModal = ({ isOpen, onClose, skip }: SkipContentsModalProps) =>
             </div>
           </div>
 
-          {/* Use Case */}
+          {/* Use Case Section */}
           <div className="bg-gray-50 p-4 rounded-lg">
             <h3 className="font-medium text-gray-900 mb-2">Ideal for:</h3>
             <p className="text-gray-700">{skip.useCase}</p>
           </div>
 
-          {/* Examples by Category */}
+          {/* Categorized Example Items */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-gray-900">Example Items</h3>
-            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Household */}
               <div className="space-y-2">
                 <h4 className="font-medium text-gray-800 flex items-center gap-2">
                   🏠 Household Items
@@ -118,7 +121,8 @@ const SkipContentsModal = ({ isOpen, onClose, skip }: SkipContentsModalProps) =>
                   ))}
                 </div>
               </div>
-              
+
+              {/* Garden */}
               <div className="space-y-2">
                 <h4 className="font-medium text-gray-800 flex items-center gap-2">
                   🌿 Garden Waste
@@ -131,7 +135,8 @@ const SkipContentsModal = ({ isOpen, onClose, skip }: SkipContentsModalProps) =>
                   ))}
                 </div>
               </div>
-              
+
+              {/* Construction */}
               <div className="space-y-2">
                 <h4 className="font-medium text-gray-800 flex items-center gap-2">
                   🔨 Construction
@@ -147,7 +152,7 @@ const SkipContentsModal = ({ isOpen, onClose, skip }: SkipContentsModalProps) =>
             </div>
           </div>
 
-          {/* Current What Fits */}
+          {/* Quick Reference Section */}
           <div className="space-y-2">
             <h4 className="font-medium text-gray-900">Quick Reference</h4>
             <div className="flex flex-wrap gap-1">
@@ -159,7 +164,7 @@ const SkipContentsModal = ({ isOpen, onClose, skip }: SkipContentsModalProps) =>
             </div>
           </div>
 
-          {/* Special Notes */}
+          {/* Optional Notes Section */}
           {skip.specialNotes && (
             <div className="bg-yellow-50 border border-yellow-200 p-3 rounded-lg">
               <div className="flex items-start gap-2">
@@ -172,7 +177,7 @@ const SkipContentsModal = ({ isOpen, onClose, skip }: SkipContentsModalProps) =>
             </div>
           )}
 
-          {/* Tips */}
+          {/* General Usage Tips */}
           <div className="bg-gray-100 p-4 rounded-lg">
             <h4 className="font-medium text-gray-900 mb-2">💡 Loading Tips</h4>
             <ul className="text-sm text-gray-700 space-y-1">
