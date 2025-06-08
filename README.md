@@ -8,7 +8,7 @@ This project is a redesign of the **"Choose Your Skip Size"** page from [wewantw
 
 ## Demo
 
-[Live Demo on CodeSandbox](https://re-mwaste-skip-page.vercel.app/)
+[Live Demo on Vercel](https://re-mwaste-skip-page.vercel.app/)
 
 ## Project Approach
 
