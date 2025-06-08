@@ -118,7 +118,7 @@ src/
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/skip-hire-react.git
+git clone https://github.com/vincent-mugendi/REMwaste_skip_page.git
 cd frontend
 npm install
 ````
